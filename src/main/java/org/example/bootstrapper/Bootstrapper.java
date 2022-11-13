@@ -1,13 +1,8 @@
 package org.example.bootstrapper;
 
-import org.example.Shell;
 import org.example.network.DockerNetwork;
-import org.example.node.NodeToNodeReceiver;
+import org.example.port.PortsManager;
 import org.example.udp.UdpManager;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 import java.net.*;
@@ -28,6 +23,7 @@ public class Bootstrapper {
         int containersNumber=2;
         for(int i=5000;i<5000+containersNumber;i++){
             try{
+                PortsManager.getInstance().addPort(i);
                 UdpListener listener=new UdpListener(i);
                 new Thread(listener).start();
             }catch (Exception e){
@@ -52,9 +48,11 @@ public class Bootstrapper {
     }
     public class UdpListener implements Runnable{
         private DatagramSocket udpSocket;
+        private int port;
         private byte[] buf = new byte[1024];
         public UdpListener(int port) throws SocketException {
             udpSocket = new DatagramSocket(port);
+            this.port=port;
         }
         @Override
         public void run() {
@@ -62,7 +60,7 @@ public class Bootstrapper {
                 DatagramPacket packet
                         = new DatagramPacket(buf, buf.length);
                 udpSocket.receive(packet);
-                udpSocket.send(UdpManager.getInstance().execute(packet));
+                udpSocket.send(UdpManager.getInstance().execute(packet,port));
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

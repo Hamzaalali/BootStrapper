@@ -1,36 +1,35 @@
 package org.example.load.balancer;
-
 import org.example.auth.User;
-import org.example.auth.UsersFactory;
-import org.example.ip.IpFactory;
-
+import org.example.auth.UsersManager;
+import org.example.port.PortsManager;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class LoadBalancer {
-    Map<String, List<User>> nodeUsers;
+    Map<Integer, List<User>> nodeUsers;
     private static LoadBalancer instance;
-
     private LoadBalancer(){
         nodeUsers=new HashMap<>();
+        balance();
     }
-    public Map<String,List<User>>getNodeUsers(){
-        List<String> ipList= IpFactory.getInstance().getIps();
-        List<User> userList=UsersFactory.getInstance().getUsers();
-        int usersForEachNode=userList.size()/ipList.size();
-        int ip=0;
-        List<User> ipUsers=new ArrayList<>();
+    public Map<Integer,List<User>>balance(){
+        List<Integer> ports= PortsManager.getInstance().getPorts();
+        for(int i=0;i<ports.size();i++){
+            nodeUsers.put(ports.get(i),new ArrayList<>());
+        }
+        List<User> userList= UsersManager.getInstance().getUsers();
+        int portPointer=0;
         for(int i=0;i<userList.size();i++){
-            ipUsers.add(userList.get(i));
-            if(ipUsers.size()==usersForEachNode){
-                nodeUsers.put(ipList.get(ip),ipUsers);
-                ipUsers=new ArrayList<>();
-                ip++;
-            }
+            nodeUsers.get(ports.get(portPointer)).add(userList.get(i));
+            portPointer++;
+            portPointer%=ports.size();
         }
         return nodeUsers;
+    }
+    public List<User> getPortUsers(int port){
+        return nodeUsers.get(port);
     }
     public static LoadBalancer getInstance() {
         if (instance == null) {

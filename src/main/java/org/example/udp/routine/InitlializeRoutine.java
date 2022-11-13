@@ -11,8 +11,8 @@ import java.util.List;
 public class InitlializeRoutine extends UdpRoutine{
 
     @Override
-    public DatagramPacket execute(DatagramPacket packet) {
-        List<User> userList= LoadBalancer.getInstance().getNodeUsers().get(packet.getAddress().getHostAddress());
+    public DatagramPacket execute(DatagramPacket packet,int port) {
+        List<User> userList= LoadBalancer.getInstance().getPortUsers(port);
         JSONArray jsonArray=new JSONArray();
         for(User user:userList){
             JSONObject userJson=new JSONObject();

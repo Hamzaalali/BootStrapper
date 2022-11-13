@@ -16,7 +16,7 @@ public class UdpManager {
         RoutinesFactory routinesFactory=new RoutinesFactory();
         routineMap=routinesFactory.getRoutines();
     }
-    public DatagramPacket execute(DatagramPacket packet) throws ParseException {
+    public DatagramPacket execute(DatagramPacket packet,int port) throws ParseException {
         String received
                 = new String(packet.getData(), 0, packet.getLength());
         JSONParser jsonParser=new JSONParser();
@@ -24,7 +24,7 @@ public class UdpManager {
         System.out.println(received);
         System.out.println(packet.getPort());
         UdpRoutineTypes routineType= UdpRoutineTypes.valueOf((String) routine.get("routineType"));
-        return routineMap.get(routineType).execute(packet);
+        return routineMap.get(routineType).execute(packet,port);
     }
     public static UdpManager getInstance() {
         if (instance == null) {
