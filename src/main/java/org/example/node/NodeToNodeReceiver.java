@@ -47,6 +47,10 @@ public class NodeToNodeReceiver implements Runnable {
                     }
                     packet = new DatagramPacket(jsonArray.toString().getBytes(), jsonArray.toString().getBytes().length, packet.getAddress(), packet.getPort());
                     socket.send(packet);
+                    packet = new DatagramPacket(("hi"+port).getBytes(), ("hi"+port).getBytes().length, packet.getAddress(), port-1000);
+                    Thread.sleep(2000);
+                    socket.send(packet);
+                    System.out.println("sent to "+(port-1000));
                 }
 //            }
             socket.close();
