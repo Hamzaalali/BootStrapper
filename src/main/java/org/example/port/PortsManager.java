@@ -4,7 +4,7 @@ import java.util.List;
 
 public class PortsManager {
     private List<Integer> ports;
-    private static PortsManager instance;
+    private static  PortsManager instance;
     private PortsManager(){
         ports=new ArrayList<>();
     }

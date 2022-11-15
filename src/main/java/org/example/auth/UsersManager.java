@@ -1,35 +1,31 @@
 package org.example.auth;
 
+import org.example.file.system.DiskOperations;
+import org.example.load.balancer.LoadBalancer;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UsersManager {
     private static  UsersManager instance;
+    List<User> users;
     private UsersManager(){
-
+        users=new ArrayList<>();
     }
     public List<User> getUsers(){
-        List<User> users=new ArrayList<>();
-        User user=new User();
-        user.setUsername("admin");
-        user.setPassword("admin");
-        users.add(user);
-        user=new User();
-        user.setUsername("admin1");
-        user.setPassword("admin1");
-        users.add(user);
-        user=new User();
-        user.setUsername("admin2");
-        user.setPassword("admin2");
-        users.add(user);
-        user=new User();
-        user.setUsername("admin3");
-        user.setPassword("admin3");
-        users.add(user);
+        JSONArray usersArray= DiskOperations.readJsonArray("users");
+        for(int i=0;i<usersArray.size();i++){
+            users.add(User.of((JSONObject) usersArray.get(i)));
+        }
         return users;
     }
-    public void addUser(User user){
-
+    public void addUser(User user) throws IOException {
+        users.add(user);
+        LoadBalancer.getInstance().balanceUser(user);
+        DiskOperations.appendDocument("users",user.toJson());
     }
 
     public static UsersManager getInstance() {

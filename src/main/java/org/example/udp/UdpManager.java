@@ -5,7 +5,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.net.DatagramPacket;
+import java.io.IOException;
+import java.net.*;
 import java.util.Map;
 
 public class UdpManager {
@@ -25,6 +26,11 @@ public class UdpManager {
         System.out.println(packet.getPort());
         UdpRoutineTypes routineType= UdpRoutineTypes.valueOf((String) routine.get("routineType"));
         return routineMap.get(routineType).execute(packet,port);
+    }
+    public void sendUdp(int port,String data) throws IOException {
+        DatagramSocket socket=new DatagramSocket();
+        DatagramPacket packet=new DatagramPacket(data.getBytes(),data.getBytes().length, InetAddress.getLocalHost(),port);
+        socket.send(packet);
     }
     public static UdpManager getInstance() {
         if (instance == null) {

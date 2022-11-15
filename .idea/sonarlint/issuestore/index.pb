@@ -1,14 +1,26 @@
 
-X
-(src/main/java/org/example/auth/User.java,3\1\31924c33c9e6deb459ef6b80f19320489ee4f6e3
-[
-+src/main/java/org/example/ip/IpFactory.java,d\5\d5c6022a30092acb09bbe541014a8a03c32a824f
 7
 pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
 :
 
 Dockerfile,6\6\6651ddff6eb82c840ced7c1dddee15c6e1913dd4
-T
-$src/main/java/org/example/Shell.java,8\b\8b018f89d5f2737bf2ba899fc1a9bca26e180a8b
 l
 <src/main/java/org/example/node/ServerClientCommunicator.java,7\c\7c98694c6c148700eec798e7872230569acbe8ee
+e
+5src/main/java/org/example/tcp/rqeuest/TcpRequest.java,9\e\9e5dbbed11eedb97ea6e1f0d6a38d0a05f9937c1
+j
+:src/main/java/org/example/tcp/rqeuest/RegisterRequest.java,b\a\ba24cfc5c3aafde58fc8e0c0cf4ce542c86e003b
+i
+9src/main/java/org/example/tcp/rqeuest/RequestFactory.java,3\d\3d13123f6e525af68d82aedbee6ba00c6d3f3f11
+X
+(src/main/java/org/example/auth/User.java,3\1\31924c33c9e6deb459ef6b80f19320489ee4f6e3
+i
+9src/main/java/org/example/file/system/DiskOperations.java,5\9\59227a7a11c35f66ab62030b985b72b429eb9688
+B
+storage/users.json,c\9\c9f05d7cad56fc9ede88a38495402fc40aa56850
+b
+2src/main/java/org/example/tcp/TcpRequestTypes.java,6\2\621f34936dbccf76f3045a935ebf3b902033705a
+]
+-src/main/java/org/example/tcp/TcpManager.java,a\8\a86cc9e45e3e4396b35dcdd97d8966ca49e2ad4c
+a
+1src/main/java/org/example/tcp/UserConnection.java,6\6\66d1e45d6f9a1e951f120fce5a71ddc99f4f0093

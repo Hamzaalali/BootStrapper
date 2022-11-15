@@ -1,8 +1,11 @@
 package org.example.bootstrapper;
 
+import org.example.auth.User;
 import org.example.network.DockerNetwork;
 import org.example.port.PortsManager;
+import org.example.tcp.UserConnection;
 import org.example.udp.UdpManager;
+import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 import java.net.*;
@@ -19,8 +22,8 @@ public class Bootstrapper {
             new RuntimeException(e);
         }
     }
-    private void createNetwork() throws IOException, ExecutionException, InterruptedException, TimeoutException {
-        int containersNumber=2;
+    private void createNetwork() throws IOException, ExecutionException, InterruptedException, TimeoutException, ParseException {
+        int containersNumber=4;
         for(int i=5000;i<5000+containersNumber;i++){
             try{
                 PortsManager.getInstance().addPort(i);
@@ -36,13 +39,14 @@ public class Bootstrapper {
         @Override
         public void run() {
             try {
-                ServerSocket serverSocket = new ServerSocket(3000);
+                ServerSocket serverSocket = new ServerSocket(8080);
                 while (true) {
                     Socket socket = serverSocket.accept();
                     System.out.println("New Connection At Port : "+socket.getPort());
+                    new Thread(new UserConnection(socket)).start();
                 }
             } catch (IOException e) {
-
+                throw new RuntimeException(e);
             }
         }
     }
