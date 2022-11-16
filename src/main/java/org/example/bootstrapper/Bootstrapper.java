@@ -23,7 +23,7 @@ public class Bootstrapper {
         }
     }
     private void createNetwork() throws IOException, ExecutionException, InterruptedException, TimeoutException, ParseException {
-        int containersNumber=4;
+        int containersNumber=3;
         for(int i=5000;i<5000+containersNumber;i++){
             try{
                 PortsManager.getInstance().addPort(i);

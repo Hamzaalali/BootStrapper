@@ -61,7 +61,7 @@ public class DockerNetwork {
     public void addContainers(String imageName){
         for(int i=0;i<containersNumber;i++){
             try{
-                String runContainer=String.format("docker run -e BROADCAST_IP=%s -e BOOTSTRAPPER_PORT=%s  --network=NoSqlNetwork -p %s:4000/udp -p %s:3000 -itd %s",broadCastAddress,String.valueOf(udpPort+1000),String.valueOf(udpPort),String.valueOf(tcpPort),imageName);
+                String runContainer=String.format("docker run -e UDP_PORT=%s -e BROADCAST_IP=%s -e BOOTSTRAPPER_PORT=%s  --network=NoSqlNetwork -p %s:4000/udp -p %s:3000 -itd %s",4000,broadCastAddress,String.valueOf(udpPort+1000),String.valueOf(udpPort),String.valueOf(tcpPort),imageName);
                 System.out.println(runContainer);
                 String id=Shell.getInstance().runShellCommand(runContainer);
                 String getContainerIP=String.format("docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}'  %s",id);
