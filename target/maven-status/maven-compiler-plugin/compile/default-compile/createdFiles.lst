@@ -1,9 +1,6 @@
+org\example\node\NodesManager.class
 org\example\load\balancer\LoadBalancer.class
 org\example\auth\User.class
 org\example\Main.class
-org\example\ip\IpFactory.class
-org\example\node\NodeToNodeReceiver.class
-org\example\auth\UsersFactory.class
 org\example\bootstrapper\Bootstrapper.class
-org\example\ShellManager.class
-org\example\node\NodeToNodeSender.class
+org\example\node\Node.class

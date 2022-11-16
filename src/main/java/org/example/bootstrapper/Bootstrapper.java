@@ -1,8 +1,8 @@
 package org.example.bootstrapper;
 
-import org.example.auth.User;
 import org.example.network.DockerNetwork;
-import org.example.port.PortsManager;
+import org.example.node.Node;
+import org.example.node.NodesManager;
 import org.example.tcp.UserConnection;
 import org.example.udp.UdpManager;
 import org.json.simple.parser.ParseException;
@@ -26,7 +26,11 @@ public class Bootstrapper {
         int containersNumber=3;
         for(int i=5000;i<5000+containersNumber;i++){
             try{
-                PortsManager.getInstance().addPort(i);
+                Node node=new Node();
+                node.setNodeNumber(i-4999);
+                node.setUdpPort(i-1000);
+                node.setTcpPort(i-2000);
+                NodesManager.getInstance().addNode(node);
                 UdpListener listener=new UdpListener(i);
                 new Thread(listener).start();
             }catch (Exception e){

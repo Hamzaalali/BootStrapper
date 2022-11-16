@@ -1,6 +1,7 @@
 package org.example.network;
 
 import org.example.Shell;
+import org.example.node.NodesManager;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -61,14 +62,15 @@ public class DockerNetwork {
     public void addContainers(String imageName){
         for(int i=0;i<containersNumber;i++){
             try{
-                String runContainer=String.format("docker run -e UDP_PORT=%s -e BROADCAST_IP=%s -e BOOTSTRAPPER_PORT=%s  --network=NoSqlNetwork -p %s:4000/udp -p %s:3000 -itd %s",4000,broadCastAddress,String.valueOf(udpPort+1000),String.valueOf(udpPort),String.valueOf(tcpPort),imageName);
+                String runContainer=String.format("docker run -e NODE_NUMBER=%s -e UDP_PORT=%s -e BROADCAST_IP=%s -e BOOTSTRAPPER_PORT=%s  --network=NoSqlNetwork -p %s:4000/udp -p %s:3000 -itd %s",i+1,4000,broadCastAddress,String.valueOf(udpPort+1000),String.valueOf(udpPort),String.valueOf(tcpPort),imageName);
                 System.out.println(runContainer);
                 String id=Shell.getInstance().runShellCommand(runContainer);
                 String getContainerIP=String.format("docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}'  %s",id);
                 System.out.println(id);
                 String containerIP=Shell.getInstance().runShellCommand(getContainerIP);
-               containerIP= containerIP.substring(1,containerIP.length()-1);
-               udpPort++;
+                containerIP= containerIP.substring(1,containerIP.length()-1);
+                NodesManager.getInstance().getNode(i).setIp(containerIP);
+                udpPort++;
                tcpPort++;
                 System.out.println(containerIP);
             } catch ( Exception e) {
