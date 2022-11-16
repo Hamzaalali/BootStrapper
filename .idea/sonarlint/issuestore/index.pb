@@ -24,3 +24,9 @@ b
 -src/main/java/org/example/tcp/TcpManager.java,a\8\a86cc9e45e3e4396b35dcdd97d8966ca49e2ad4c
 a
 1src/main/java/org/example/tcp/UserConnection.java,6\6\66d1e45d6f9a1e951f120fce5a71ddc99f4f0093
+T
+$src/main/java/org/example/Shell.java,8\b\8b018f89d5f2737bf2ba899fc1a9bca26e180a8b
+`
+0src/main/java/org/example/port/PortsManager.java,2\3\235d59c889f8a819a7601fbac1957590720215d5
+d
+4src/main/java/org/example/network/DockerNetwork.java,0\6\06a7ab784eaa9fa40bd304296a8bf9ef63d775e2

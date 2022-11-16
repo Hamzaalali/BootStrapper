@@ -64,7 +64,8 @@ public class Bootstrapper {
                 DatagramPacket packet
                         = new DatagramPacket(buf, buf.length);
                 udpSocket.receive(packet);
-                udpSocket.send(UdpManager.getInstance().execute(packet,port));
+                System.out.println("packet from : "+packet.getAddress().getHostAddress()+":"+packet.getPort());
+                UdpManager.getInstance().execute(packet,udpSocket,port);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
