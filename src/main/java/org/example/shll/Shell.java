@@ -1,6 +1,4 @@
-package org.example;
-
-import org.example.load.balancer.LoadBalancer;
+package org.example.shll;
 
 import java.io.*;
 import java.util.concurrent.*;

@@ -22,10 +22,11 @@ public class UsersManager {
         }
         return users;
     }
-    public void addUser(User user) throws IOException {
+    public int addUser(User user) throws IOException {
         users.add(user);
-        LoadBalancer.getInstance().balanceUser(user);
+        int tcpPort=LoadBalancer.getInstance().balanceUser(user);
         DiskOperations.appendDocument("users",user.toJson());
+        return tcpPort;
     }
 
     public static UsersManager getInstance() {

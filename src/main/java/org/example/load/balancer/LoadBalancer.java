@@ -35,13 +35,14 @@ public class LoadBalancer {
         }
         return nodeUsers;
     }
-    public void balanceUser(User user) throws IOException {
+    public int balanceUser(User user) throws IOException {
         int nodeNumber= nextNodeNumber();
         Node node=nodes.get(nodeNumber);
         nodeUsers.get(nodes.get(nodeNumber)).add(user);
         JSONObject routine=user.toJson();
         routine.put("routineType", UdpRoutineTypes.ADD_USER.toString());
         UdpManager.getInstance().sendUdp(node.getUdpPort(), routine.toJSONString());
+        return node.getTcpPort();
     }
     public Integer nextNodeNumber(){
         nodePointer++;
@@ -49,7 +50,7 @@ public class LoadBalancer {
         return nodePointer;
     }
     public List<User> getNodeUsers(int nodeNumber){
-        return nodeUsers.get(nodes.get(nodeNumber));
+        return nodeUsers.get(nodes.get(nodeNumber-1));
     }
     public static LoadBalancer getInstance() {
         if (instance == null) {

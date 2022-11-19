@@ -12,11 +12,11 @@
     "password": "admin2"
   },
   {
-    "password": "hamza",
-    "username": "hamza"
+    "username": "hamza",
+    "password": "hamza"
   },
   {
-    "password": "hamza",
-    "username": "hamza"
+    "username": "hamza",
+    "password": "hamza"
   }
-]
+,{"password":"admon","username":"admon"},{"password":"admon","username":"admon"}]

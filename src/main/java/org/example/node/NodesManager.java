@@ -16,8 +16,8 @@ public class NodesManager {
     public List<Node> getNodes(){
         return nodes;
     }
-    public Node getNode(int index){
-        return nodes.get(index);
+    public Node getNode(int nodeNumber){
+        return nodes.get(nodeNumber-1);
     }
     public static NodesManager getInstance() {
         if (instance == null) {

@@ -20,18 +20,17 @@ public class DiskOperations {
             createAndAdd(fileName,document);
             return;
         }
-        RandomAccessFile readerWriter = new RandomAccessFile(storageDirectoryPath+"/"+fileName+".json", "rw");
-        FileChannel channel = readerWriter.getChannel();
-        int index= (int) channel.size();
-        ByteBuffer buff;
-        if(index==2){
-            buff = ByteBuffer.wrap((document.toJSONString()+"]").getBytes());
-        }else{
-            buff = ByteBuffer.wrap((","+document.toJSONString()+"]").getBytes());
+        try( RandomAccessFile readerWriter = new RandomAccessFile(storageDirectoryPath+"/"+fileName+".json", "rw");
+             FileChannel channel = readerWriter.getChannel();){
+            int index= (int) channel.size();
+            ByteBuffer buff;
+            if(index==2){
+                buff = ByteBuffer.wrap((document.toJSONString()+"]").getBytes());
+            }else{
+                buff = ByteBuffer.wrap((","+document.toJSONString()+"]").getBytes());
+            }
+            channel.write(buff,index-1);
         }
-        channel.write(buff,index-1);
-        channel.close();
-        readerWriter.close();
     }
     public static void createDirectoryIfNotFound(String directory) throws IOException {
         Files.createDirectories(Paths.get(directory));
@@ -58,7 +57,6 @@ public class DiskOperations {
         {
             Object obj = jsonParser.parse(reader);
             JSONArray jsonArray = (JSONArray) obj;
-            System.out.println(jsonArray);
             return jsonArray;
         } catch (FileNotFoundException e) {
             e.printStackTrace();

@@ -21,10 +21,8 @@ public class UserConnection implements Runnable{
             try {
                 JSONObject request= ServerClientCommunicator.readJson(socket);
                 ServerClientCommunicator.sendJson(socket,TcpManager.getInstance().execute(request));
-            } catch (IOException e ) {
-                throw new RuntimeException(e);
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
+            } catch (Exception e){
+                //ignore connection reset
             }
         }
     }

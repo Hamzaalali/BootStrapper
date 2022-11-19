@@ -1,17 +1,15 @@
 package org.example.bootstrapper;
-
+import org.example.env.EnvironmentVariables;
 import org.example.network.DockerNetwork;
 import org.example.node.Node;
 import org.example.node.NodesManager;
 import org.example.tcp.UserConnection;
 import org.example.udp.UdpManager;
 import org.json.simple.parser.ParseException;
-
 import java.io.IOException;
 import java.net.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
-
 public class Bootstrapper {
     private DockerNetwork dockerNetwork;
     public void run(){
@@ -23,27 +21,28 @@ public class Bootstrapper {
         }
     }
     private void createNetwork() throws IOException, ExecutionException, InterruptedException, TimeoutException, ParseException {
-        int containersNumber=3;
-        for(int i=5000;i<5000+containersNumber;i++){
+        int tcpPort= EnvironmentVariables.getInstance().getTcpStartingRange();
+        int udpPort=EnvironmentVariables.getInstance().getUdpStartingRange();
+        int bootstrapperPort=EnvironmentVariables.getInstance().getBootstrapperUdpRange();
+        for(int i=1;i<=EnvironmentVariables.getInstance().getContainerNumbers();i++,tcpPort++,udpPort++,bootstrapperPort++){
             try{
                 Node node=new Node();
-                node.setNodeNumber(i-4999);
-                node.setUdpPort(i-1000);
-                node.setTcpPort(i-2000);
+                node.setNodeNumber(i);
+                node.setUdpPort(udpPort);
+                node.setTcpPort(tcpPort);
                 NodesManager.getInstance().addNode(node);
-                UdpListener listener=new UdpListener(i);
+                UdpListener listener=new UdpListener(bootstrapperPort,i);
                 new Thread(listener).start();
             }catch (Exception e){
                 throw new RuntimeException(e);
             }
         }
-        dockerNetwork=new DockerNetwork("NoSqlNetwork",containersNumber,"database-node");
+        dockerNetwork=new DockerNetwork("NoSqlNetwork","database-node");
     }
     private class TcpListener implements Runnable{
         @Override
         public void run() {
-            try {
-                ServerSocket serverSocket = new ServerSocket(8080);
+            try (ServerSocket serverSocket = new ServerSocket(EnvironmentVariables.getInstance().getBootstrapperTcpPort())){
                 while (true) {
                     Socket socket = serverSocket.accept();
                     System.out.println("New Connection At Port : "+socket.getPort());
@@ -56,11 +55,11 @@ public class Bootstrapper {
     }
     public class UdpListener implements Runnable{
         private DatagramSocket udpSocket;
-        private int port;
         private byte[] buf = new byte[1024];
-        public UdpListener(int port) throws SocketException {
+        private int nodeNumber;
+        public UdpListener(int port,int nodeNumber) throws SocketException {
             udpSocket = new DatagramSocket(port);
-            this.port=port;
+            this.nodeNumber=nodeNumber;
         }
         @Override
         public void run() {
@@ -68,8 +67,7 @@ public class Bootstrapper {
                 DatagramPacket packet
                         = new DatagramPacket(buf, buf.length);
                 udpSocket.receive(packet);
-                System.out.println("packet from : "+packet.getAddress().getHostAddress()+":"+packet.getPort());
-                UdpManager.getInstance().execute(packet,udpSocket,port);
+                UdpManager.getInstance().execute(packet,udpSocket,nodeNumber);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

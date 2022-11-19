@@ -13,7 +13,8 @@ public class RegisterRequest extends TcpRequest{
         user.setPassword((String) request.get("password"));
         user.setUsername((String) request.get("username"));
         try{
-            UsersManager.getInstance().addUser(user);
+            int tcpPort=UsersManager.getInstance().addUser(user);
+            clientMessage.put("tcpPort",tcpPort);
         }catch (Exception e){
             System.out.println(e.getMessage());
             clientMessage.put("code_number",1);
