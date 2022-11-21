@@ -1,14 +1,13 @@
 package org.example.udp.routine;
-
-import org.example.udp.UdpRoutineTypes;
+import org.example.udp.CommandTypes;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class RoutinesFactory {
-    public Map<UdpRoutineTypes,UdpRoutine> getRoutines(){
-        Map<UdpRoutineTypes,UdpRoutine> routineMap=new HashMap<>();
-        routineMap.put(UdpRoutineTypes.INIT,new InitlializeRoutine());
+    public Map<CommandTypes,UdpRoutine> getRoutines(){
+        Map<CommandTypes,UdpRoutine> routineMap=new HashMap<>();
+        routineMap.put(CommandTypes.INITIALIZE,new InitlializeRoutine());
         return routineMap;
     }
 }

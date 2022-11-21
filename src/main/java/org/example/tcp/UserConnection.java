@@ -1,8 +1,7 @@
 package org.example.tcp;
 
-import org.example.node.ServerClientCommunicator;
+import org.example.node.TCPCommunicator;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -19,8 +18,8 @@ public class UserConnection implements Runnable{
     private void getUserRequests(){
         while(true){
             try {
-                JSONObject request= ServerClientCommunicator.readJson(socket);
-                ServerClientCommunicator.sendJson(socket,TcpManager.getInstance().execute(request));
+                JSONObject request= TCPCommunicator.readJson(socket);
+                TCPCommunicator.sendJson(socket,TcpManager.getInstance().execute(request));
             } catch (Exception e){
                 //ignore connection reset
             }

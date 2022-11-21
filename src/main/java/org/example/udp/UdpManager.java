@@ -10,7 +10,7 @@ import java.net.*;
 import java.util.Map;
 
 public class UdpManager {
-    Map<UdpRoutineTypes, UdpRoutine> routineMap;
+    Map<CommandTypes, UdpRoutine> routineMap;
     private static UdpManager instance;
 
     private UdpManager(){
@@ -22,7 +22,7 @@ public class UdpManager {
                 = new String(packet.getData(), 0, packet.getLength());
         JSONParser jsonParser=new JSONParser();
         JSONObject routine= (JSONObject) jsonParser.parse(received);
-        UdpRoutineTypes routineType= UdpRoutineTypes.valueOf((String) routine.get("routineType"));
+        CommandTypes routineType= CommandTypes.valueOf((String) routine.get("commandType"));
         routineMap.get(routineType).execute(packet,socket,nodeNumber);
     }
     public void sendUdp(int port,String data) throws IOException {

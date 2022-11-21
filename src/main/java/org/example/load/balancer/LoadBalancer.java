@@ -3,8 +3,8 @@ import org.example.auth.User;
 import org.example.auth.UsersManager;
 import org.example.node.Node;
 import org.example.node.NodesManager;
+import org.example.udp.CommandTypes;
 import org.example.udp.UdpManager;
-import org.example.udp.UdpRoutineTypes;
 import org.json.simple.JSONObject;
 
 import java.io.IOException;
@@ -40,7 +40,7 @@ public class LoadBalancer {
         Node node=nodes.get(nodeNumber);
         nodeUsers.get(nodes.get(nodeNumber)).add(user);
         JSONObject routine=user.toJson();
-        routine.put("routineType", UdpRoutineTypes.ADD_USER.toString());
+        routine.put("commandType", CommandTypes.ADD_USER.toString());
         UdpManager.getInstance().sendUdp(node.getUdpPort(), routine.toJSONString());
         return node.getTcpPort();
     }

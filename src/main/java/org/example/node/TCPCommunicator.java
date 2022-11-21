@@ -8,7 +8,7 @@ import org.json.simple.parser.ParseException;
 import java.io.*;
 import java.net.Socket;
 
-public class ServerClientCommunicator {
+public class TCPCommunicator {
 
 
     public static String readString(Socket socket) throws IOException {

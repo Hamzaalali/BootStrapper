@@ -1,0 +1,22 @@
+
+a
+java:S1192"FDefine a constant instead of duplicating this literal ".json" 4 times.(¯ªéÀùÿÿÿÿ
+ƒ
+java:S1488;"aImmediately return this expression instead of assigning it to the temporary variable "jsonArray".(à€‰·ûÿÿÿÿ8ÕçˆÉ0
+e
+java:S2184 "CCast one of the operands of this subtraction operation to a "long".(¨¸È÷ıÿÿÿÿ8ÕçˆÉ0
+t	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(Ğå¾úÿÿÿÿ
+U
+java:S1118":Add a private constructor to hide the implicit public one.(‹›Ô½úÿÿÿÿ
+A
+java:S1075"&Remove this hard-coded path-delimiter.(¯ªéÀùÿÿÿÿ
+H
+java:S1075'"&Remove this hard-coded path-delimiter.(¯ªéÀùÿÿÿÿ8±ÕçˆÉ0
+H
+java:S10757"&Remove this hard-coded path-delimiter.(¯ªéÀùÿÿÿÿ8¶ÕçˆÉ0
+a
+java:S2147?"DCombine this catch with the one at line 61, which has the same body.(ï­£Ä8·ÕçˆÉ0
+f
+java:S2147A"DCombine this catch with the one at line 61, which has the same body.(âÃƒŠıÿÿÿÿ8·ÕçˆÉ0
+H
+java:S1168D"+Return an empty collection instead of null.(¥¹ï8¹ÕçˆÉ0

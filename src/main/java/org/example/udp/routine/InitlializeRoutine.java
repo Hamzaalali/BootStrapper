@@ -3,7 +3,7 @@ import org.example.auth.User;
 import org.example.load.balancer.LoadBalancer;
 import org.example.node.Node;
 import org.example.node.NodesManager;
-import org.example.udp.UdpRoutineTypes;
+import org.example.udp.CommandTypes;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import java.net.DatagramPacket;
@@ -33,7 +33,7 @@ public class InitlializeRoutine extends UdpRoutine{
             nodes.add(node.toJson());
         }
         initializeObject.put("nodes",nodes);
-        initializeObject.put("routineType", UdpRoutineTypes.INIT.toString());
+        initializeObject.put("commandType", CommandTypes.INITIALIZE.toString());
         packet = new DatagramPacket(initializeObject.toString().getBytes(), initializeObject.toString().getBytes().length, packet.getAddress(), thisNode.getUdpPort());
         try{
            socket.send(packet);

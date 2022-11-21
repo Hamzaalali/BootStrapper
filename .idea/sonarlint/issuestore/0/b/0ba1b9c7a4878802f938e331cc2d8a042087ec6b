@@ -1,13 +1,0 @@
-
-N	java:S106"9Replace this use of System.out or System.err by a logger.(Å´²¨
-N	java:S106"9Replace this use of System.out or System.err by a logger.(Ú›ï
-N	java:S106"9Replace this use of System.out or System.err by a logger.(íúªÔ
-S	java:S106"9Replace this use of System.out or System.err by a logger.(¼üÄúÿÿÿÿ
-S	java:S106"9Replace this use of System.out or System.err by a logger.(óı™‰ùÿÿÿÿ
-N	java:S106"9Replace this use of System.out or System.err by a logger.(¼¼…à
-S	java:S106"9Replace this use of System.out or System.err by a logger.(úàúÿÿÿÿ
-N	java:S106"9Replace this use of System.out or System.err by a logger.(ÍÎ·ë
-N	java:S106"9Replace this use of System.out or System.err by a logger.(½Û©´
-N	java:S106"9Replace this use of System.out or System.err by a logger.(êç‹±
-K
-java:S1128"0Remove this unused import 'java.io.IOException'.(ªº»Úıÿÿÿÿ
