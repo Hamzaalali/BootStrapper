@@ -17,7 +17,8 @@ public class Bootstrapper {
             createNetwork();
             new Thread(new TcpListener()).start();
         }catch (Exception e){
-            new RuntimeException(e);
+            System.out.println("Error while creating the cluster");
+            System.out.println(e);
         }
     }
     private void createNetwork() throws IOException, ExecutionException, InterruptedException, TimeoutException, ParseException {
@@ -44,15 +45,23 @@ public class Bootstrapper {
         public void run() {
             try (ServerSocket serverSocket = new ServerSocket(EnvironmentVariables.getInstance().getBootstrapperTcpPort())){
                 while (true) {
-                    Socket socket = serverSocket.accept();
-                    System.out.println("New Connection At Port : "+socket.getPort());
-                    new Thread(new UserConnection(socket)).start();
+                    getConnections(serverSocket);
                 }
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
     }
+
+    private static void getConnections(ServerSocket serverSocket) {
+        try(Socket socket = serverSocket.accept()){
+            System.out.println("New Connection At Port : "+socket.getPort());
+            new Thread(new UserConnection(socket)).start();
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+    }
+
     public class UdpListener implements Runnable{
         private DatagramSocket udpSocket;
         private byte[] buf = new byte[1024];

@@ -59,4 +59,15 @@ public class Node {
         jsonObject.put("udpPort",udpPort);
         return jsonObject;
     }
+
+    @Override
+    public String toString() {
+        return "Node{" +
+                "nodeNumber=" + nodeNumber +
+                ", tcpPort=" + tcpPort +
+                ", nodeJsonObject=" + nodeJsonObject +
+                ", ip='" + ip + '\'' +
+                ", udpPort=" + udpPort +
+                '}';
+    }
 }

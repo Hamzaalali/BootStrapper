@@ -23,7 +23,7 @@ public class LoadBalancer {
         nodeUsers=new HashMap<>();
         nodes= NodesManager.getInstance().getNodes();
         balance();
-        nodePointer =-1;
+        nodePointer = 0;
     }
     public Map<Node,List<User>>balance(){
         for(int i=0;i<nodes.size();i++){
@@ -31,7 +31,8 @@ public class LoadBalancer {
         }
         List<User> userList= UsersManager.getInstance().getUsers();
         for(int i=0;i<userList.size();i++){
-            nodeUsers.get(nodes.get(nextNodeNumber())).add(userList.get(i));
+            nodeUsers.get(nodes.get(nodePointer)).add(userList.get(i));
+            nextNodeNumber();
         }
         return nodeUsers;
     }
